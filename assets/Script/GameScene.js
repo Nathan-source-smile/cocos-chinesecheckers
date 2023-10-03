@@ -15,10 +15,10 @@ cc.Class({
         GameScene = this;
         loadImgAtlas()
             .then(() => {
-                this.start1();
                 FakeServer.initHandlers();
                 // setTimeout(() => {
                 FakeServer.init();
+                this.start1();
                 // }, 3000);
             })
             .catch((error) => {

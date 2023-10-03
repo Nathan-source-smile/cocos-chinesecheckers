@@ -16268,6 +16268,7 @@
     "u": 0,
     "v": 0,
     "w": 0,
+    "user": -1,
     "_id": "8aLKL2k19EbJJgAQ+3n3wu"
   },
   {
@@ -16356,6 +16357,7 @@
     "u": 8,
     "v": -4,
     "w": -4,
+    "user": -1,
     "_id": "92UGI3nJVEjrI1pgz/2gnD"
   },
   {
@@ -16444,6 +16446,7 @@
     "u": 7,
     "v": -4,
     "w": -3,
+    "user": -1,
     "_id": "49AOqHOzxB8bqukoTknqfC"
   },
   {
@@ -16532,6 +16535,7 @@
     "u": 7,
     "v": -3,
     "w": -4,
+    "user": -1,
     "_id": "a7X1AmDLFKG6keQtfmH4ie"
   },
   {
@@ -16620,6 +16624,7 @@
     "u": 6,
     "v": -4,
     "w": -2,
+    "user": -1,
     "_id": "c7LwBizRpMwoBtjXDOVX2E"
   },
   {
@@ -16708,6 +16713,7 @@
     "u": 6,
     "v": -3,
     "w": -3,
+    "user": -1,
     "_id": "54RrumQ8lDaZrq07cKvOAx"
   },
   {
@@ -16796,6 +16802,7 @@
     "u": 6,
     "v": -2,
     "w": -4,
+    "user": -1,
     "_id": "48N+gtkZRBSZL1sbtBDSFE"
   },
   {
@@ -16884,6 +16891,7 @@
     "u": 5,
     "v": -4,
     "w": -1,
+    "user": -1,
     "_id": "5fsESZFmxLNZ6yMqbM4iZm"
   },
   {
@@ -16972,6 +16980,7 @@
     "u": 5,
     "v": -3,
     "w": -2,
+    "user": -1,
     "_id": "d3ARu9tkBNtoCROwVOeTJj"
   },
   {
@@ -17060,6 +17069,7 @@
     "u": 5,
     "v": -2,
     "w": -3,
+    "user": -1,
     "_id": "44d99UwUVHzpPn/60n9dCE"
   },
   {
@@ -17148,6 +17158,7 @@
     "u": 5,
     "v": -1,
     "w": -4,
+    "user": -1,
     "_id": "cavN3zbdVFwI8kj7D87JZF"
   },
   {
@@ -17236,6 +17247,7 @@
     "u": 4,
     "v": -8,
     "w": 4,
+    "user": -1,
     "_id": "9eu5ZlH1tKJJFXOEiOTLYP"
   },
   {
@@ -17324,6 +17336,7 @@
     "u": 4,
     "v": -7,
     "w": 3,
+    "user": -1,
     "_id": "97gchM0rNMt4t9SOhqYPtp"
   },
   {
@@ -17412,6 +17425,7 @@
     "u": 4,
     "v": -6,
     "w": 2,
+    "user": -1,
     "_id": "4aJlqdd6NDQKsc1DxYOovx"
   },
   {
@@ -17500,6 +17514,7 @@
     "u": 4,
     "v": -5,
     "w": 1,
+    "user": -1,
     "_id": "27GL1XFoRLwb0yvNz3IkP8"
   },
   {
@@ -17588,6 +17603,7 @@
     "u": 4,
     "v": -4,
     "w": 0,
+    "user": -1,
     "_id": "024dtxhR1Awrb3kktXvufN"
   },
   {
@@ -17676,6 +17692,7 @@
     "u": 4,
     "v": -3,
     "w": -1,
+    "user": -1,
     "_id": "18ajyJsc1C+qxUEa37hBbE"
   },
   {
@@ -17764,6 +17781,7 @@
     "u": 4,
     "v": -2,
     "w": -2,
+    "user": -1,
     "_id": "d1fELjBK5JmIg/WIJ2y6e2"
   },
   {
@@ -17852,6 +17870,7 @@
     "u": 4,
     "v": -1,
     "w": -3,
+    "user": -1,
     "_id": "c41gGq+zRCEpVw6PC+fK7e"
   },
   {
@@ -17940,6 +17959,7 @@
     "u": 4,
     "v": 0,
     "w": -4,
+    "user": -1,
     "_id": "d1d2Hp5KpOa41pHxfLtQ37"
   },
   {
@@ -18028,6 +18048,7 @@
     "u": 4,
     "v": 1,
     "w": -5,
+    "user": -1,
     "_id": "b5JrTjyCtADZ5RTsa1hvZZ"
   },
   {
@@ -18116,6 +18137,7 @@
     "u": 4,
     "v": 2,
     "w": -6,
+    "user": -1,
     "_id": "23VMdriGpIPrbE8jjiaf8h"
   },
   {
@@ -18204,6 +18226,7 @@
     "u": 4,
     "v": 3,
     "w": -7,
+    "user": -1,
     "_id": "18X2zjrIJGIIZbasthVND2"
   },
   {
@@ -18292,6 +18315,7 @@
     "u": 0,
     "v": 0,
     "w": 0,
+    "user": -1,
     "_id": "66W9JzLoFOgbXQzBj+GPJv"
   },
   {
@@ -18380,6 +18404,7 @@
     "u": 3,
     "v": -7,
     "w": 4,
+    "user": -1,
     "_id": "862UOKNqNBa4wExZmzYK8t"
   },
   {
@@ -18468,6 +18493,7 @@
     "u": 3,
     "v": -6,
     "w": 3,
+    "user": -1,
     "_id": "86kPYjaxlL5LwKxImkXRG5"
   },
   {
@@ -18556,6 +18582,7 @@
     "u": 3,
     "v": -5,
     "w": 2,
+    "user": -1,
     "_id": "59zKk8ir9HSpFHIxLGx29R"
   },
   {
@@ -18644,6 +18671,7 @@
     "u": 3,
     "v": -4,
     "w": 1,
+    "user": -1,
     "_id": "14RZsbZxJCtL804y+sVWNu"
   },
   {
@@ -18732,6 +18760,7 @@
     "u": 3,
     "v": -3,
     "w": 0,
+    "user": -1,
     "_id": "12BktE8RZNzoXxzPTtvHwf"
   },
   {
@@ -18820,6 +18849,7 @@
     "u": 3,
     "v": -2,
     "w": -1,
+    "user": -1,
     "_id": "dbImiNkjBIJLjBg4zJ53Lt"
   },
   {
@@ -18908,6 +18938,7 @@
     "u": 3,
     "v": -1,
     "w": -2,
+    "user": -1,
     "_id": "192WuHgM1H85hsk7z0sti3"
   },
   {
@@ -18996,6 +19027,7 @@
     "u": 3,
     "v": 0,
     "w": -3,
+    "user": -1,
     "_id": "92fNgADktNLLTip422RUgC"
   },
   {
@@ -19084,6 +19116,7 @@
     "u": 0,
     "v": 0,
     "w": 0,
+    "user": -1,
     "_id": "b75g1Q/kVNIb1MWDRwjsAe"
   },
   {
@@ -19172,6 +19205,7 @@
     "u": 3,
     "v": 2,
     "w": -5,
+    "user": -1,
     "_id": "d1UKOPfMlPVLvxrBB3fF+X"
   },
   {
@@ -19260,6 +19294,7 @@
     "u": 0,
     "v": 0,
     "w": 0,
+    "user": -1,
     "_id": "b2bPLxhjJLsJMFh62Zn8kb"
   },
   {
@@ -19348,6 +19383,7 @@
     "u": 0,
     "v": 0,
     "w": 0,
+    "user": -1,
     "_id": "06o+BR+GxHbJDEhW6ZZBuf"
   },
   {
@@ -19436,6 +19472,7 @@
     "u": 0,
     "v": 0,
     "w": 0,
+    "user": -1,
     "_id": "35FVv8TnpFDaFpJ4TuSkNn"
   },
   {

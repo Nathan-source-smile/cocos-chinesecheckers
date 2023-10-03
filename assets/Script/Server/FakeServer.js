@@ -20,6 +20,8 @@ var currentPlayer = 0;
 var repliedUsers = [];
 var endflags = [];
 var gameEndFlag = false;
+var step = 0;
+var panel = [];
 //--------Defining global variables----------
 
 //----------------------------------------
@@ -32,6 +34,25 @@ function copyObject(object) {
         return object;
     }
     return JSON.parse(JSON.stringify(object));
+}
+
+function isIn2DArray(arr, val) {
+    for (var i = 0; i < arr.length; i++) {
+        if (JSON.stringify(arr[i]) === JSON.stringify(val)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function sumArrays(arr1, arr2) {
+    var sum = [];
+
+    for (var i = 0; i < arr1.length; i++) {
+        sum.push(arr1[i] + arr2[i]);
+    }
+
+    return sum;
 }
 
 if (!trace) {
@@ -71,7 +92,7 @@ function initHandlers() {
     );
     ServerCommService.addRequestHandler(
         MESSAGE_TYPE.CS_PUT_STONE,
-        clickMouse
+        selectUnit
     );
 }
 
@@ -80,13 +101,23 @@ function init() {
 }
 
 function startMission() {
+    panel = [
+        [4, -8, 4], [3, -7, 4], [4, -7, 3], [2, -6, 4], [3, -6, 3], [4, -6, 2], [1, -5, 4], [2, -5, 3], [3, -5, 2], [4, -5, 1],
+        [-8, 4, 4], [-7, 4, 3], [-7, 3, 4], [-6, 4, 2], [-6, 3, 3], [-6, 2, 4], [-5, 4, 1], [-5, 3, 2], [-5, 2, 3], [-5, 1, 4],
+        [4, 4, -8], [4, 3, -7], [3, 4, -7], [4, 2, -6], [3, 3, -6], [2, 4, -6], [4, 1, -5], [3, 2, -5], [2, 3, -5], [1, 4, -5]
+    ]
+    for (var i = -4; i <= 8; i++) {
+        for (var j = -4; j <= 4 - i; j++) {
+            panel.push(copyObject([i, j, -i - j]));
+        }
+    }
     var player1 = [[8, -4, -4], [7, -4, -3], [7, -3, -4], [6, -4, -2], [6, -3, -3], [6, -2, -4], [5, -4, -1], [5, -3, -2], [5, -2, -3], [5, -1, -4]];
-    var player2 = [[8, -4, -4], [7, -4, -3], [7, -3, -4], [6, -4, -2], [6, -3, -3], [6, -2, -4], [5, -4, -1], [5, -3, -2], [5, -2, -3], [5, -1, -4]];
-    var player3 = [[8, -4, -4], [7, -4, -3], [7, -3, -4], [6, -4, -2], [6, -3, -3], [6, -2, -4], [5, -4, -1], [5, -3, -2], [5, -2, -3], [5, -1, -4]];
+    var player2 = [[4, -8, 4], [3, -7, 4], [4, -7, 3], [2, -6, 4], [3, -6, 3], [4, -6, 2], [1, -5, 4], [2, -5, 3], [3, -5, 2], [4, -5, 1]];
+    var player3 = [[-4, -4, 8], [-4, -3, 7], [-3, -4, 7], [-4, -2, 6], [-3, -3, 6], [-2, -4, 6], [-4, -1, 5], [-3, -2, 5], [-2, -3, 5], [-1, -4, 5]];
     var player4 = [[-8, 4, 4], [-7, 4, 3], [-7, 3, 4], [-6, 4, 2], [-6, 3, 3], [-6, 2, 4], [-5, 4, 1], [-5, 3, 2], [-5, 2, 3], [-5, 1, 4]];
-    var player5 = [[8, -4, -4], [7, -4, -3], [7, -3, -4], [6, -4, -2], [6, -3, -3], [6, -2, -4], [5, -4, -1], [5, -3, -2], [5, -2, -3], [5, -1, -4]];
-    var player6 = [[8, -4, -4], [7, -4, -3], [7, -3, -4], [6, -4, -2], [6, -3, -3], [6, -2, -4], [5, -4, -1], [5, -3, -2], [5, -2, -3], [5, -1, -4]];
-    if (playerCnt == 2) {
+    var player5 = [[-4, 8, -4], [-3, 7, -4], [-4, 7, -3], [-2, 6, -4], [-3, 6, -3], [-4, 6, -2], [-1, 5, -4], [-2, 5, -3], [-3, 5, -2], [-4, 5, -1]];
+    var player6 = [[4, 4, -8], [4, 3, -7], [3, 4, -7], [4, 2, -6], [3, 3, -6], [2, 4, -6], [4, 1, -5], [3, 2, -5], [2, 3, -5], [1, 4, -5]];
+    if (playerCnt === 2) {
         playerList = playerList.concat(copyObject(player1));
         playerList = playerList.concat(copyObject(player4));
     }
@@ -97,19 +128,40 @@ function startMission() {
     askUser(currentPlayer);
 }
 
-function getAvailableCells() {
-    return availableCells;
+function isEmpty(unit) {
+    for (var i = 0; i < playerCnt; i++) {
+        if (isIn2DArray(playerList[i], unit)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function getAvailableCells(unit) {
+    availableCells = [];
+    Array(6).forEach(function (e, i) {
+        var newCell = sumArrays(unit, cubic.NEIGHBOR_OFFSETS[i]);
+        if (isIn2DArray(panel, newCell)) {
+            if (isEmpty(newCell)) {
+                availableCells = availableCells.concat(copyObject(newCell));
+            } else {
+                getAvailableCells(newCell);
+            }
+        }
+    });
 }
 
 function askUser(user) {
     console.log("ask user to claim put stone : " + user);
+    var r = Math.floor(Math.random() * 10);
+    getAvailableCells(playerList[user][r]);
     var random = Math.floor(Math.random() * availableCells.length);
     TimeoutManager.setNextTimeout(function () {
-        clickMouse({ u: availableCells[random][0], v: availableCells[random][1], w: availableCells[random][2], user: user }, 1);
+        moveUnit({ u: availableCells[random][0], v: availableCells[random][1], w: availableCells[random][2], user: user }, 1);
     });
 }
 
-function clickMouse(params, room) {
+function moveUnit(params, room) {
     TimeoutManager.clearNextTimeout();
     u = params.u;
     v = params.v;
@@ -135,6 +187,10 @@ function clickMouse(params, room) {
     if (missionEndFlag === 1)
         return;
     else this.askUser();
+}
+
+function selectUnit() {
+
 }
 // finish the game or mission
 function gameOver() {

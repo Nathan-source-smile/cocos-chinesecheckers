@@ -5,6 +5,7 @@ cc.Class({
         u: 0,
         v: 0,
         w: 0,
+        user: -1,
     },
 
     // use this for initialization
@@ -16,14 +17,7 @@ cc.Class({
         // Get the position of the click event
         let touchPos = event.getLocation();
         touchPos = this.node.convertToNodeSpaceAR(touchPos);
-        let x = Math.floor(touchPos.x / BLOCKSIZE);
-        let y = Math.floor(Math.abs(touchPos.y / BLOCKSIZE));
-        if (this._res && !this._historyMode && this.isListInArray(this._availAreas, [x, y])) {
-            // this._res = false;
-            this._x = x
-            this._y = y
-            ClientCommService.sendClickPosition(this._x, this._y, this._turn);
-        }
+        ClientCommService.sendClickPosition(this.u, this.v, this.w, this.user);
     },
 
     // called every frame
