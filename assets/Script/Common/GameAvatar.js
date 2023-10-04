@@ -7,7 +7,7 @@ export default cc.Class({
   properties: {
     avatarSprite: cc.Sprite,
     // pointLabelActive: cc.Label,
-    checkerSeclect: cc.Node,
+    checkerSeclect: cc.Prefab,
     nameLabelActive: cc.Label,
     nameLabelInactive: cc.Label,
 

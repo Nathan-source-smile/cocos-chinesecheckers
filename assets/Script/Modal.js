@@ -1,6 +1,6 @@
 import { ClientCommService } from "./ClientCommService"
 
-cc.Class({
+export default cc.Class({
     extends: cc.Component,
 
     properties: {
@@ -8,7 +8,7 @@ cc.Class({
             default: null,
             type: cc.Label,
         },
-        
+
         
     },
     onLoad() {

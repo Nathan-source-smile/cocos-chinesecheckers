@@ -2345,7 +2345,7 @@
     "asset": {
       "__uuid__": "ef8a4e68-6469-4bfc-8f76-6d9087e7ecce"
     },
-    "fileId": "8aHq9kYI5JzKuJDaU/ly8C",
+    "fileId": "e59HfDscpFgKMs64RnqcW2",
     "sync": false
   },
   {
@@ -3256,9 +3256,7 @@
     "avatarSprite": {
       "__id__": 19
     },
-    "checkerSeclect": {
-      "__id__": 41
-    },
+    "checkerSeclect": null,
     "nameLabelActive": {
       "__id__": 37
     },
