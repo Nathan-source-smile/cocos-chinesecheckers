@@ -2,6 +2,8 @@ import { loadImgAtlas } from './AssetLoader';
 import { FakeServer } from './Common/CommServices';
 import GameAvatar from '././Common/GameAvatar';
 import TopBar from './TopBar';
+import GlobalVariables from './GlobalVariables';
+import { ROUNDS } from './Common/Messages';
 import Modal from './Modal';
 import SetChecker from './SetChecker';
 
@@ -48,7 +50,14 @@ cc.Class({
     },
 
     start1() {
-        
+        GlobalVariables.round = ROUNDS.START_STEP;
+    },
+
+    setAvailCells(avaialbeCells, user) {
+        GlobalVariables.availableCells = avaialbeCells;
+    },
+
+    setMoveResult(result) {
     },
 
     // called every frame

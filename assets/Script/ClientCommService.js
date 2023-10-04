@@ -13,20 +13,14 @@ export const ClientCommService = {
             case MESSAGE_TYPE.SC_START_GAME:
                 GameScene.start1();
                 break;
-            case MESSAGE_TYPE.SC_DRAW_BOARD:
-                GameScene.drawBoard(params.board, params.turn, params.availAreas, params.x, params.y, params.missionEndFlag);
-                break;
-            case MESSAGE_TYPE.SC_POINTS:
-                GameScene.setScore(params.blackStoneNum, params.whiteStoneNum);
-                break;
-            case MESSAGE_TYPE.SC_END_MISSION:
-                GameScene.showEndModal(params.blackScore, params.whiteScore, params.missionScore);
-                break;
             case MESSAGE_TYPE.SC_END_GAME:
                 GameScene.showEndModal(params.blackScore, params.whiteScore, params.missionScore);
                 break;
-            case MESSAGE_TYPE.SC_DRAW_HISTORY:
-                GameScene.drawHistoryBoard(params.board, params.turn, params.x, params.y, params.blackStoneNum, params.whiteStoneNum, params.step, params.availAreas);
+            case MESSAGE_TYPE.SC_AVAIL_CELLS:
+                GameScene.setAvailCells(params.avaialbeCells, params.user);
+                break;
+            case MESSAGE_TYPE.SC_MOVE_UNIT:
+                GameScene.setMoveResult(params.result);
                 break;
         }
     },
@@ -35,8 +29,12 @@ export const ClientCommService = {
         ServerCommService.onReceiveMessage(messageType, data, room);
     },
 
-    sendClickPosition(x, y, turn) {
-        this.send(MESSAGE_TYPE.CS_PUT_STONE, { x, y, turn }, 1);
+    sendSelectUnit(u, v, w, user) {
+        this.send(MESSAGE_TYPE.CS_SELECT_UNIT, { u, v, w, user }, 1);
+    },
+
+    sendClaimMove(currentUnit, targetCell, user) {
+        this.send(MESSAGE_TYPE.CS_CLAIM_MOVE, { currentUnit, targetCell, user }, 1);
     },
 
     sendRestartMission() {
