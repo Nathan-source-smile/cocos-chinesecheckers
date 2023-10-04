@@ -6,8 +6,8 @@ export default cc.Class({
 
   properties: {
     avatarSprite: cc.Sprite,
-    pointLabelActive: cc.Label,
-    pointLabelInactive: cc.Label,
+    // pointLabelActive: cc.Label,
+    checkerSeclect: cc.Node,
     nameLabelActive: cc.Label,
     nameLabelInactive: cc.Label,
 
@@ -19,6 +19,12 @@ export default cc.Class({
     progressRoot: cc.Node,
     progressSprite: cc.Sprite,
     timerLabel: cc.Label,
+
+    otherUserModal1: cc.Node,
+    otherUserModal2: cc.Node,
+
+    player1: cc.Label,
+    player2: cc.Label,
 
     _type: [],
     _timeLimit: [],

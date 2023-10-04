@@ -28,9 +28,13 @@
       }
     ],
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 11
+      }
+    ],
     "_prefab": {
-      "__id__": 11
+      "__id__": 12
     },
     "_opacity": 255,
     "_color": {
@@ -407,6 +411,19 @@
     },
     "fileId": "64QVHhf09Kz52/wA/VuUup",
     "sync": false
+  },
+  {
+    "__type__": "dd4bcQbe75AH4jKzg4KZ1Gj",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "Player": {
+      "__id__": 6
+    },
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",
