@@ -1,7 +1,7 @@
 export default cc.Class({
     extends: cc.Component,
 
-    properties:{
+    properties: {
         red: cc.Sprite,
         blue: cc.Sprite,
         purple: cc.Sprite,
@@ -12,12 +12,12 @@ export default cc.Class({
 
 
     onload() {
-     
-      },
-    
-      start() { },
 
-    unvisibleColor(){
+    },
+
+    start() { },
+
+    unvisibleColor() {
         this.red.node.active = false;
         this.blue.node.active = false;
         this.purple.node.active = false;
@@ -26,20 +26,20 @@ export default cc.Class({
         this.yellow.node.active = false;
     },
 
-    setColor(col){
+    setColor(col) {
         this.unvisibleColor();
-        if(col === 'red') {
+        if (col === 'red') {
             this.red.node.active = true;
-        } else if(col === 'blue') {
+        } else if (col === 'blue') {
             this.blue.node.active = true;
-        } else if(col === 'purple') {
-            this.blue.node.active = true;
-        } else if(col === 'yellow') {
-            this.blue.node.active = true;
-        } else if(col === 'green') {
-            this.blue.node.active = true;
-        } else if(col === 'orange') {
-            this.blue.node.active = true;
+        } else if (col === 'purple') {
+            this.purple.node.active = true;
+        } else if (col === 'yellow') {
+            this.yellow.node.active = true;
+        } else if (col === 'green') {
+            this.green.node.active = true;
+        } else if (col === 'orange') {
+            this.orange.node.active = true;
         }
     },
 

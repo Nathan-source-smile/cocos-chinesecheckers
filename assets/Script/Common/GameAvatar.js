@@ -6,8 +6,7 @@ export default cc.Class({
 
   properties: {
     avatarSprite: cc.Sprite,
-    // pointLabelActive: cc.Label,
-    checkerSeclect: cc.Prefab,
+    checkerSelect: cc.Prefab,
     nameLabelActive: cc.Label,
     nameLabelInactive: cc.Label,
 
@@ -25,9 +24,11 @@ export default cc.Class({
 
     player1: cc.Label,
     player2: cc.Label,
+    checkerLayout: cc.Node,
 
     _type: [],
     _timeLimit: [],
+    _pname: "",
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -36,22 +37,51 @@ export default cc.Class({
     // this.notifyRoot.active = false;
     this._timeLimit = TIME_LIMIT;
     this.showProgressBar(false);
-    this.setPoint(0);
+    this.checkerLayout.removeAllChildren();
   },
 
   start() { },
 
-  // showNotify(str) {
-  //   var self = this;
-  //   this.notifyLabel.string = str;
-  //   this.notifyRoot.active = true;
-  //   setTimeout(() => {
-  //     self.notifyRoot.active = false;
-  //   }, ALARM_LIMIT * 1000);
-  // },
+  showNotify_1() {
+    let self = this;
+    this.player1.string = this._pname;
+    this.otherUserModal1.active = true;
+    setTimeout(() => {
+      self.otherUserModal1.active = false;
+    }, ALARM_LIMIT * 1000);
+  },
+
+  showNotify_2(str) {
+    let self = this;
+    this.player2.string = str;
+    this.otherUserModal2.active = true;
+    setTimeout(() => {
+      self.otherUserModal2.active = false;
+    }, ALARM_LIMIT * 1000);
+  },
+
+  setChecker(mode, color) {
+    this.checkerLayout.removeAllChildren();
+    if (mode === 1) {
+      let checkerSelect = cc.instantiate(this.checkerSelect);
+      const checker = checkerSelect.getComponent('SetChecker');
+      checker.setColor(color);
+      this.checkerLayout.addChild(checkerSelect);
+    } else if (mode === 2) {
+      console.log(color[0],color[1]);
+      let checkerSelect = cc.instantiate(this.checkerSelect);
+      const checker = checkerSelect.getComponent('SetChecker');
+      checker.setColor(color[0]);
+      let checkerSelect1 = cc.instantiate(this.checkerSelect);
+      const checker1 = checkerSelect1.getComponent('SetChecker');
+      checker1.setColor(color[1]);
+      this.checkerLayout.addChild(checkerSelect);
+      this.checkerLayout.addChild(checkerSelect1);
+    }
+  },
 
   setName(str) {
-    this.name = str;
+    this._pname = str;
     this.nameLabelActive.string = str.substring(0, 15);
     this.nameLabelInactive.string = str.substring(0, 15);
   },
@@ -65,17 +95,6 @@ export default cc.Class({
     console.log("Setting avatar", path);
     this.path = path;
     loadAvatar(this.avatarSprite, path);
-  },
-
-  setPoint(point) {
-    console.log("Setting points", point);
-    this.pointLabelActive.string = point + '/15';
-    this.pointLabelInactive.string = point + '/15';
-  },
-
-  addPoint(point) {
-    console.log("Adding points", point);
-    this.pointLabel.string = parseInt(this.pointLabel.string) + point;
   },
 
   startCountdown(timeLimit) {
@@ -103,8 +122,6 @@ export default cc.Class({
       this.bgNode2Inactive.active = false;
       this.nameLabelActive.node.active = true;
       this.nameLabelInactive.node.active = false;
-      this.pointLabelActive.node.active = true;
-      this.pointLabelInactive.node.active = false;
 
     } else {
       this.bgNode1Active.active = false;
@@ -113,8 +130,6 @@ export default cc.Class({
       this.bgNode2Inactive.active = true;
       this.nameLabelActive.node.active = false;
       this.nameLabelInactive.node.active = true;
-      this.pointLabelActive.node.active = false;
-      this.pointLabelInactive.node.active = true;
     }
   },
 

@@ -14,8 +14,8 @@ export default cc.Class({
     onLoad() {
     },
 
-    setText(coin) {
-        
+    setText(text) {
+        this.ModalScore.string = text;
     },
 
     onClick() {

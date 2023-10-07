@@ -11,16 +11,19 @@ export const ClientCommService = {
 
         switch (messageType) {
             case MESSAGE_TYPE.SC_START_GAME:
-                GameScene.start1();
+                GameScene.start1(params.playerList, params.user);
+                break;
+            case MESSAGE_TYPE.SC_ASK_USER:
+                GameScene.askUser(params.user, params.step);
                 break;
             case MESSAGE_TYPE.SC_END_GAME:
-                GameScene.showEndModal(params.blackScore, params.whiteScore, params.missionScore);
+                GameScene.showEndModal(params.ranking);
                 break;
             case MESSAGE_TYPE.SC_AVAIL_CELLS:
-                GameScene.setAvailCells(params.avaialbeCells, params.user);
+                GameScene.setAvailCells(params.availableCells, params.user);
                 break;
             case MESSAGE_TYPE.SC_MOVE_UNIT:
-                GameScene.setMoveResult(params.result);
+                GameScene.setMoveResult(params.result, params.finish, params.user, params.currentUnit, params.targetCell, params.ranking, params.entered);
                 break;
         }
     },
@@ -37,15 +40,7 @@ export const ClientCommService = {
         this.send(MESSAGE_TYPE.CS_CLAIM_MOVE, { currentUnit, targetCell, user }, 1);
     },
 
-    sendRestartMission() {
-        this.send(MESSAGE_TYPE.CS_RESTART_MISSION, {}, 1);
-    },
-
-    sendClaimHistory(step) {
-        this.send(MESSAGE_TYPE.CS_PLAY_HISTORY, { step }, 1);
-    },
-
-    sendRestartGame() {
-        this.send(MESSAGE_TYPE.CS_RESTART_GAME, {}, 1);
+    sendRestartGame(playerCnt, mode) {
+        this.send(MESSAGE_TYPE.CS_RESTART_GAME, { playerCnt, mode }, 1);
     }
 };

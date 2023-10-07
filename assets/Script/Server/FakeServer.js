@@ -9,11 +9,6 @@ var cubic = {
     NEIGHBOR_OFFSETS: [[0, 1, -1], [1, 0, -1], [1, -1, 0], [0, -1, 1], [-1, 0, 1], [-1, 1, 0]],
     DIR_TO_CUBIC: [[1, -0.5, -0.5], [0.5, -1, 0.5], [-0.5, -0.5, 1], [-1, 0.5, 0.5], [-0.5, 1, -0.5], [0.5, 0.5, -1]],
 };
-var cell = {
-    u: 0,
-    v: 0,
-    w: 0,
-}
 var currentUnit = [];
 var targetCell = [];
 var playerList = [];
@@ -23,11 +18,14 @@ var currentPlayer = 0;
 var repliedUsers = [];
 var endflags = [];
 var gameEndFlag = false;
-var step = 0;
+var step = 0; // for mode 2
 var panel = [];
-var missionEndFlag = 0;
+var mode = 1;
 var ranking = [];
 var players = [];
+var timeHandlers = [];
+var s = 0;
+var fff = -1; // for mode 2
 
 panel = [
     [4, -8, 4], [3, -7, 4], [4, -7, 3], [2, -6, 4], [3, -6, 3], [4, -6, 2], [1, -5, 4], [2, -5, 3], [3, -5, 2], [4, -5, 1],
@@ -39,12 +37,7 @@ for (var i = -4; i <= 8; i++) {
         panel.push(copyObject([i, j, -i - j]));
     }
 }
-
 //--------Defining global variables----------
-
-//----------------------------------------
-// array copy method
-//----------------------------------------
 
 function copyObject(object) {
     if (!object) {
@@ -56,7 +49,10 @@ function copyObject(object) {
 
 function isIn2DArray(arr, val) {
     for (var i = 0; i < arr.length; i++) {
-        if (JSON.stringify(arr[i]) === JSON.stringify(val)) {
+        // if (JSON.stringify(arr[i]) === JSON.stringify(val)) {
+        //     return true;
+        // }
+        if (arr[i][0] === val[0] && arr[i][1] === val[1] && arr[i][2] === val[2]) {
             return true;
         }
     }
@@ -115,23 +111,29 @@ function initHandlers() {
 }
 
 function init() {
-    startGame();
+    startGame({ playerCnt: 2, mode: 1 }, 0);
 }
 
-function startGame() {
+function startGame(params, room) {
     // clear parameters
+    playerCnt = params.playerCnt;
+    mode = params.mode;
     playerList = [];
     targetList = [];
     endflags = [];
     ranking = [];
     gameEndFlag = false;
     players = [];
+    step = 0;
+    fff = -1;
 
     //starting positions of players
     var player1 = [[8, -4, -4], [7, -4, -3], [7, -3, -4], [6, -4, -2], [6, -3, -3], [6, -2, -4], [5, -4, -1], [5, -3, -2], [5, -2, -3], [5, -1, -4]];
+    // var player1 = [[-8, 4, 4], [-7, 4, 3], [-7, 3, 4], [-6, 4, 2], [-6, 3, 3], [-6, 2, 4], [-5, 4, 1], [-5, 3, 2], [-4, 2, 2], [-5, 1, 4]];
     var player2 = [[4, -8, 4], [3, -7, 4], [4, -7, 3], [2, -6, 4], [3, -6, 3], [4, -6, 2], [1, -5, 4], [2, -5, 3], [3, -5, 2], [4, -5, 1]];
     var player3 = [[-4, -4, 8], [-4, -3, 7], [-3, -4, 7], [-4, -2, 6], [-3, -3, 6], [-2, -4, 6], [-4, -1, 5], [-3, -2, 5], [-2, -3, 5], [-1, -4, 5]];
     var player4 = [[-8, 4, 4], [-7, 4, 3], [-7, 3, 4], [-6, 4, 2], [-6, 3, 3], [-6, 2, 4], [-5, 4, 1], [-5, 3, 2], [-5, 2, 3], [-5, 1, 4]];
+    // var player4 = [[8, -4, -4], [7, -4, -3], [7, -3, -4], [6, -4, -2], [6, -3, -3], [6, -2, -4], [5, -4, -1], [5, -3, -2], [4, -2, -2], [5, -1, -4]];
     var player5 = [[-4, 8, -4], [-3, 7, -4], [-4, 7, -3], [-2, 6, -4], [-3, 6, -3], [-4, 6, -2], [-1, 5, -4], [-2, 5, -3], [-3, 5, -2], [-4, 5, -1]];
     var player6 = [[4, 4, -8], [4, 3, -7], [3, 4, -7], [4, 2, -6], [3, 3, -6], [2, 4, -6], [4, 1, -5], [3, 2, -5], [2, 3, -5], [1, 4, -5]];
     //target positions of players
@@ -141,16 +143,85 @@ function startGame() {
     var target4 = [[8, -4, -4], [7, -4, -3], [7, -3, -4], [6, -4, -2], [6, -3, -3], [6, -2, -4], [5, -4, -1], [5, -3, -2], [5, -2, -3], [5, -1, -4]];
     var target5 = [[4, -8, 4], [3, -7, 4], [4, -7, 3], [2, -6, 4], [3, -6, 3], [4, -6, 2], [1, -5, 4], [2, -5, 3], [3, -5, 2], [4, -5, 1]];
     var target6 = [[-4, -4, 8], [-4, -3, 7], [-3, -4, 7], [-4, -2, 6], [-3, -3, 6], [-2, -4, 6], [-4, -1, 5], [-3, -2, 5], [-2, -3, 5], [-1, -4, 5]];
-    if (playerCnt === 2) {
-        playerList = playerList.concat(copyObject(player1));
-        playerList = playerList.concat(copyObject(player4));
-        targetList = targetList.concat(copyObject(target1));
-        targetList = targetList.concat(copyObject(target4));
+    switch (playerCnt) {
+        case 2:
+            playerList.push(copyObject(player1));
+            playerList.push(copyObject(player4));
+            targetList.push(copyObject(target1));
+            targetList.push(copyObject(target4));
+            break;
+        case 3:
+            if (mode === 1) {
+                playerList.push(copyObject(player1));
+                playerList.push(copyObject(player3));
+                playerList.push(copyObject(player5));
+                targetList.push(copyObject(target1));
+                targetList.push(copyObject(target3));
+                targetList.push(copyObject(target5));
+            } else if (mode === 2) {
+                console.log("2222222222222")
+                ////////////
+                playerList.push(copyObject(player1));
+                playerList.push(copyObject(player2));
+                playerList.push(copyObject(player3));
+                playerList.push(copyObject(player4));
+                playerList.push(copyObject(player5));
+                playerList.push(copyObject(player6));
+                targetList.push(copyObject(target1));
+                targetList.push(copyObject(target2));
+                targetList.push(copyObject(target3));
+                targetList.push(copyObject(target4));
+                targetList.push(copyObject(target5));
+                targetList.push(copyObject(target6));
+            }
+            break;
+        case 4:
+            playerList.push(copyObject(player1));
+            playerList.push(copyObject(player3));
+            playerList.push(copyObject(player4));
+            playerList.push(copyObject(player6));
+            targetList.push(copyObject(target1));
+            targetList.push(copyObject(target3));
+            targetList.push(copyObject(target4));
+            targetList.push(copyObject(target6));
+            break;
+        case 5:
+            playerList.push(copyObject(player1));
+            playerList.push(copyObject(player2));
+            playerList.push(copyObject(player3));
+            playerList.push(copyObject(player4));
+            playerList.push(copyObject(player5));
+            targetList.push(copyObject(target1));
+            targetList.push(copyObject(target2));
+            targetList.push(copyObject(target3));
+            targetList.push(copyObject(target4));
+            targetList.push(copyObject(target5));
+            break;
+        case 6:
+            playerList.push(copyObject(player1));
+            playerList.push(copyObject(player2));
+            playerList.push(copyObject(player3));
+            playerList.push(copyObject(player4));
+            playerList.push(copyObject(player5));
+            playerList.push(copyObject(player6));
+            targetList.push(copyObject(target1));
+            targetList.push(copyObject(target2));
+            targetList.push(copyObject(target3));
+            targetList.push(copyObject(target4));
+            targetList.push(copyObject(target5));
+            targetList.push(copyObject(target6));
+            break;
+        default:
+            playerList.push(copyObject(player1));
+            playerList.push(copyObject(player4));
+            targetList.push(copyObject(target1));
+            targetList.push(copyObject(target4));
+            break;
     }
     Array(playerCnt).fill().forEach(function (e, i) {
         endflags.push(false);
         players.push(i);
-    })
+    });
     currentPlayer = 0;
     ServerCommService.send(
         MESSAGE_TYPE.SC_START_GAME,
@@ -160,11 +231,15 @@ function startGame() {
         },
         currentPlayer,
     );
+    timeHandlers.forEach(function (e) {
+        clearTimeout(e);
+    });
+    timeHandlers = [];
     askUser(currentPlayer);
 }
 
 function isEmpty(unit) {
-    for (var i = 0; i < playerCnt; i++) {
+    for (var i = 0; i < playerList.length; i++) {
         if (isIn2DArray(playerList[i], unit)) {
             return false;
         }
@@ -174,11 +249,12 @@ function isEmpty(unit) {
 
 function getAvailableCells(unit) {
     if (s === 0) {
+        s += 1;
         Array(6).fill().forEach(function (e, i) {
             var newCell = sumArrays(unit, cubic.NEIGHBOR_OFFSETS[i]);
             if (isIn2DArray(panel, newCell)) {
                 if (isEmpty(newCell) && !isIn2DArray(availableCells, newCell)) {
-                    availableCells = availableCells.concat(copyObject(newCell));
+                    availableCells.push(copyObject(newCell));
                 } else if (isIn2DArray(availableCells, newCell)) {
 
                 } else {
@@ -186,12 +262,11 @@ function getAvailableCells(unit) {
                 }
             }
         });
-        s++;
     }
     else {
-        if (isEmpty(unit)) {
+        if (isEmpty(unit) && isIn2DArray(panel, unit)) {
             if (!isIn2DArray(availableCells, unit)) {
-                availableCells = availableCells.concat(copyObject(newCell));
+                availableCells.push(copyObject(unit));
                 Array(6).fill().forEach(function (e, i) {
                     var newCell = sumArrays(unit, cubic.NEIGHBOR_OFFSETS[i]);
                     if (isIn2DArray(panel, newCell)) {
@@ -205,36 +280,41 @@ function getAvailableCells(unit) {
     }
 }
 
-function turnChecker(unit, neighbor) {
-    if (isEmpty(unit)) {
-        return 0;
-    } else {
-        turnChecker(sumArrays(unit, neighbor))
-    }
-}
-
 function askUser(user) {
     console.log("ask user to claim put stone : " + user);
+    step = 0;
+    if (mode === 2) {
+        fff = (fff + 1) % (players.length * 2);
+        step = Math.floor(fff / players.length);
+    }
     ServerCommService.send(
         MESSAGE_TYPE.SC_ASK_USER,
         {
-            user: currentPlayer,
+            user: user,
+            step: step,
         },
         1,
     );
+
     TimeoutManager.setNextTimeout(function () {
         var r = Math.floor(Math.random() * 10);
-        getAvailableCells(playerList[user][r]);
+        s = 0;
+        availableCells = [];
+        currentUnit = currentUnit.length === 0 ? playerList[user + step * playerCnt][r] : currentUnit;
+        getAvailableCells(currentUnit);
         var random = Math.floor(Math.random() * availableCells.length);
-        moveUnit({ u: availableCells[random][0], v: availableCells[random][1], w: availableCells[random][2], user: user }, 1);
+        moveUnit({ currentUnit: currentUnit, targetCell: availableCells[random], user: user }, 1);
     });
+    timeHandlers.push(TimeoutManager.timeoutHandler);
 }
 
 function selectUnit(params, room) {
     currentUnit = [params.u, params.v, params.w];
     availableCells = [];
-    var s = 0;
+    s = 0;
+    console.log(currentUnit);
     getAvailableCells(currentUnit);
+    console.log(availableCells);
     ServerCommService.send(
         MESSAGE_TYPE.SC_AVAIL_CELLS,
         {
@@ -259,6 +339,8 @@ function arraysEqual(arr1, arr2) {
     if (arr1.length !== arr2.length) {
         return false;
     }
+    arr1 = arr1.sort();
+    arr2 = arr2.sort();
     for (var i = 0; i < arr1.length; i++) {
         if (arr1[i].toString() !== arr2[i].toString()) {
             return false;
@@ -269,30 +351,64 @@ function arraysEqual(arr1, arr2) {
 
 function moveUnit(params, room) {
     TimeoutManager.clearNextTimeout();
+    timeHandlers.splice(timeHandlers.indexOf(TimeoutManager.timeoutHandler), 1);
     currentUnit = copyObject(params.currentUnit);
+    if (params.targetCell === undefined) {
+        currentPlayer = setNextUser(currentPlayer);
+        askUser(currentPlayer);
+        players = [];
+        Array(playerCnt).fill().forEach(function (e, i) {
+            if (!endflags[i]) {
+                players.push(i);
+            }
+        });
+        currentUnit = [];
+        targetCell = [];
+        return;
+    }
     targetCell = copyObject(params.targetCell);
     // if (!markUserReplied(user)) {
     //     return;
     // }
-    playerList[currentPlayer] = replaceSubarray(playerList[currentPlayer], currentPlayer, targetCell);
+    playerList[currentPlayer + playerCnt * step] = replaceSubarray(playerList[currentPlayer + playerCnt * step], currentUnit, targetCell);
     if (arraysEqual(playerList[currentPlayer], targetList[currentPlayer])) {
-        endflags[currentPlayer] = true;
-        ranking.push(currentPlayer);
+        if (mode === 2) {
+            if (arraysEqual(playerList[currentPlayer + playerCnt], targetList[currentPlayer + playerCnt])) {
+                endflags[currentPlayer] = true;
+                ranking.push(currentPlayer);
+                fff = -1;
+            }
+        } else {
+            endflags[currentPlayer] = true;
+            ranking.push(currentPlayer);
+        }
     }
     gameOver();
+    var entered = false;
+    if (!isIn2DArray(targetList[currentPlayer + playerCnt * step], currentUnit) && isIn2DArray(targetList[currentPlayer + playerCnt * step], targetCell)) {
+        entered = true;
+    }
     ServerCommService.send(
         MESSAGE_TYPE.SC_MOVE_UNIT,
         {
             result: true,
             finish: endflags[currentPlayer],
             user: currentPlayer,
+            currentUnit: currentUnit,
+            targetCell: targetCell,
+            ranking: ranking,
+            entered: entered,
         },
-        turn
+        1
     );
+    currentUnit = [];
+    targetCell = [];
     if (gameEndFlag) {
         ServerCommService.send(
             MESSAGE_TYPE.SC_END_GAME,
-            {},
+            {
+                ranking: ranking,
+            },
             1
         );
     } else {
@@ -315,7 +431,11 @@ function setNextUser(user) {
 
 // finish the game or mission
 function gameOver() {
-    if (ranking.length === playerCnt) {
+    if (ranking.length === playerCnt - 1) {
+        for (var i = 0; i < playerCnt; i++) {
+            if (ranking.indexOf(i) === -1)
+                ranking.push(i);
+        }
         gameEndFlag = true;
     }
 }
@@ -343,7 +463,7 @@ export const ServerCommService = {
     },
     onReceiveMessage(messageType, data, room) {
         const callback = this.callbackMap[messageType];
-        trace("S - onReceiveMessage", messageType, data, room);
+        console.log("S - onReceiveMessage", messageType, data, room);
         if (callback) {
             callback(data, room);
         }

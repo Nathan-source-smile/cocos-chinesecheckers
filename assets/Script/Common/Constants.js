@@ -1,6 +1,6 @@
 export const TIME_LIMIT = 15;
 export const COINS_LIMIT = 30;
-export const ALARM_LIMIT = 2;
+export const ALARM_LIMIT = 3;
 export const BLOCKSIZE = 75;
 
 export const INST_URL = "http://www.ludoteka.com/international_draughts.html";
@@ -12,3 +12,5 @@ export const TWITTER_URL = "https://twitter.com/torofungames";
 export const PINTEREST_URL = "https://www.pinterest.es/ToroFun/";
 export const TF_URL = "https://www.torofun.com";
 export const TF_SHOP_URL = "https://www.torofun.com/coins";
+
+export const colors = ['blue']
