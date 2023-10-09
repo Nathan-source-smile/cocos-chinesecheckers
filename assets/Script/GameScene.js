@@ -230,18 +230,18 @@ cc.Class({
     },
 
     setAvailCells(avaialbeCells, user) {
-        let hovers = this.node.getComponentsInChildren(Hover);
-        hovers.forEach((hover) => {
-            hover.node.destroy();
-        });
+        // let hovers = this.node.getComponentsInChildren(Hover);
+        // hovers.forEach((hover) => {
+        //     hover.node.destroy();
+        // });
         GlobalVariables.availableCells = avaialbeCells;
-        GlobalVariables.availableCells.forEach((unit, j) => {
-            const cell = getCell(this._cells, unit);
-            if (cell) {
-                let prefab = cc.instantiate(this.hover);
-                cell.node.addChild(prefab);
-            }
-        });
+        // GlobalVariables.availableCells.forEach((unit, j) => {
+        //     const cell = getCell(this._cells, unit);
+        //     if (cell) {
+        //         let prefab = cc.instantiate(this.hover);
+        //         cell.node.addChild(prefab);
+        //     }
+        // });
     },
 
     setMoveResult(result, finish, user, currentUnit, targetCell, ranking, entered) {
@@ -351,20 +351,20 @@ cc.Class({
         } else {
             switch (ranking.indexOf(0)) {
                 case 1:
-                    this.placeNotify2.node.active = true;
-                    this.placeNotify2.setText = '2nd';
+                    this.placeNotify1.node.active = true;
+                    this.placeNotify1.setText = '2nd';
                     break;
                 case 2:
-                    this.placeNotify2.node.active = true;
-                    this.placeNotify2.setText = '3rd';
+                    this.placeNotify1.node.active = true;
+                    this.placeNotify1.setText = '3rd';
                     break;
                 case 3:
-                    this.placeNotify2.node.active = true;
-                    this.placeNotify2.setText = '4th';
+                    this.placeNotify1.node.active = true;
+                    this.placeNotify1.setText = '4th';
                     break;
                 case 4:
-                    this.placeNotify2.node.active = true;
-                    this.placeNotify2.setText = '5th';
+                    this.placeNotify1.node.active = true;
+                    this.placeNotify1.setText = '5th';
                     break;
             }
         }
