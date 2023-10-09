@@ -41,7 +41,7 @@ for (var i = -4; i <= 8; i++) {
 
 function copyObject(object) {
     if (!object) {
-        console.log("undefined object in copyObject:", object);
+        trace("undefined object in copyObject:", object);
         return object;
     }
     return JSON.parse(JSON.stringify(object));
@@ -159,7 +159,6 @@ function startGame(params, room) {
                 targetList.push(copyObject(target3));
                 targetList.push(copyObject(target5));
             } else if (mode === 2) {
-                console.log("2222222222222")
                 ////////////
                 playerList.push(copyObject(player1));
                 playerList.push(copyObject(player2));
@@ -281,7 +280,7 @@ function getAvailableCells(unit) {
 }
 
 function askUser(user) {
-    console.log("ask user to claim put stone : " + user);
+    trace("ask user to claim put stone : " + user);
     step = 0;
     if (mode === 2) {
         fff = (fff + 1) % (players.length * 2);
@@ -312,9 +311,9 @@ function selectUnit(params, room) {
     currentUnit = [params.u, params.v, params.w];
     availableCells = [];
     s = 0;
-    console.log(currentUnit);
+    // console.log(currentUnit);
     getAvailableCells(currentUnit);
-    console.log(availableCells);
+    // console.log(availableCells);
     ServerCommService.send(
         MESSAGE_TYPE.SC_AVAIL_CELLS,
         {
@@ -463,7 +462,7 @@ export const ServerCommService = {
     },
     onReceiveMessage(messageType, data, room) {
         const callback = this.callbackMap[messageType];
-        console.log("S - onReceiveMessage", messageType, data, room);
+        trace("S - onReceiveMessage", messageType, data, room);
         if (callback) {
             callback(data, room);
         }

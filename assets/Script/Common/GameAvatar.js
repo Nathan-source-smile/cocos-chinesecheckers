@@ -68,7 +68,6 @@ export default cc.Class({
       checker.setColor(color);
       this.checkerLayout.addChild(checkerSelect);
     } else if (mode === 2) {
-      console.log(color[0],color[1]);
       let checkerSelect = cc.instantiate(this.checkerSelect);
       const checker = checkerSelect.getComponent('SetChecker');
       checker.setColor(color[0]);

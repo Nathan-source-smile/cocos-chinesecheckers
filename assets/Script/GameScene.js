@@ -39,6 +39,7 @@ cc.Class({
         greenChecker: cc.Prefab,
         checker: cc.Prefab,
         hover: cc.Prefab,
+        selectEnv: cc.ToggleContainer,
 
         // user can be -1(white) or 1(black)
         // _currentUser: 0,
@@ -204,7 +205,7 @@ cc.Class({
         this._cells.forEach((cell) => {
             cell.setUser(-1);
         });
-        console.log("ssssss", playerList);
+        // console.log("ssssss", playerList);
         playerList.forEach((player, i) => {
             player.forEach((unit, j) => {
                 const cell = getCell(this._cells, unit);
@@ -332,6 +333,38 @@ cc.Class({
         //     this._playerCnt = 6;
         //     GlobalVariables = 6;
         // }
+        ClientCommService.sendRestartGame(this._playerCnt, this._mode);
+    },
+
+    setEnv(e) {
+        switch (e.node.name) {
+            case "toggle1":
+                GlobalVariables.mode = 1;
+                GlobalVariables.playerCnt = 2;
+                break;
+            case "toggle2":
+                GlobalVariables.mode = 1;
+                GlobalVariables.playerCnt = 3;
+                break;
+            case "toggle3":
+                GlobalVariables.mode = 2;
+                GlobalVariables.playerCnt = 3;
+                break;
+            case "toggle4":
+                GlobalVariables.mode = 1;
+                GlobalVariables.playerCnt = 4;
+                break;
+            case "toggle5":
+                GlobalVariables.mode = 1;
+                GlobalVariables.playerCnt = 5;
+                break;
+            case "toggle6":
+                GlobalVariables.mode = 1;
+                GlobalVariables.playerCnt = 6;
+                break;
+        }
+        this._playerCnt = GlobalVariables.playerCnt;
+        this._mode = GlobalVariables.mode;
         ClientCommService.sendRestartGame(this._playerCnt, this._mode);
     },
 
