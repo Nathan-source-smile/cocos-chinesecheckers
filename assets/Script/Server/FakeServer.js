@@ -71,7 +71,7 @@ function sumArrays(arr1, arr2) {
 
 if (!trace) {
     var trace = function () {
-        console.trace(JSON.stringify(arguments));
+        console.log(JSON.stringify(arguments));
     }
 }
 
