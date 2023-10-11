@@ -23,8 +23,8 @@ export default cc.Class({
 
     onTouchStart(event) {
         // Get the position of the click event
-        let touchPos = event.getLocation();
-        touchPos = this.node.convertToNodeSpaceAR(touchPos);
+        // let touchPos = event.getLocation();
+        // touchPos = this.node.convertToNodeSpaceAR(touchPos);
         // console.log(this.user);
         if (this.user === GlobalVariables.step * GlobalVariables.playerCnt + GlobalVariables.currentUser && (GlobalVariables.round === ROUNDS.START_STEP || GlobalVariables.round === ROUNDS.SELECT_UNIT)) {
             ClientCommService.sendSelectUnit(this.u, this.v, this.w, this.user);

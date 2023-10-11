@@ -205,7 +205,7 @@ cc.Class({
         this._cells.forEach((cell) => {
             cell.setUser(-1);
         });
-        // console.log("ssssss", playerList);
+        console.log("ssssss", playerList);
         playerList.forEach((player, i) => {
             player.forEach((unit, j) => {
                 const cell = getCell(this._cells, unit);
