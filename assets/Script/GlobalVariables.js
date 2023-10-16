@@ -14,6 +14,7 @@ const GlobalVariables = {
     ],
     mode: 1,
     step: 0,
+    checker: null,
 };
 
 export default GlobalVariables;

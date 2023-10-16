@@ -302,11 +302,39 @@ cc.Class({
         hovers.forEach((hover) => {
             hover.node.destroy();
         });
+        try {
+            const hover = GlobalVariables.checker._currentNode.getChildByName('hover');
+            const clicked = GlobalVariables.checker._currentNode.getChildByName('clicked');
+            const regular = GlobalVariables.checker._currentNode.getChildByName('regular');
+            hover.active = false;
+            clicked.active = false;
+            regular.active = true;
+        } catch (e) {
+
+        }
     },
 
     setActivePlayer(user) {
         this._playerAvatars.forEach((item) => item.stopCountdown());
         this._playerAvatars[user].startCountdown();
+        GlobalVariables.round = ROUNDS.START_STEP;
+        GlobalVariables.currentUnit = [];
+        GlobalVariables.targetCell = [];
+        GlobalVariables.availableCells = [];
+        let hovers = this.node.getComponentsInChildren(Hover);
+        hovers.forEach((hover) => {
+            hover.node.destroy();
+        });
+        try {
+            const hover = GlobalVariables.checker._currentNode.getChildByName('hover');
+            const clicked = GlobalVariables.checker._currentNode.getChildByName('clicked');
+            const regular = GlobalVariables.checker._currentNode.getChildByName('regular');
+            hover.active = false;
+            clicked.active = false;
+            regular.active = true;
+        } catch (e) {
+
+        }
     },
 
     stopPlayer(user) {

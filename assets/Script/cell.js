@@ -26,27 +26,34 @@ export default cc.Class({
 
     onMouseMove(event) {
         if (!this._clicked && this.user === GlobalVariables.step * GlobalVariables.playerCnt + GlobalVariables.currentUser) {
-            const checker = this.getComponentInChildren("Checkers");
-            // console.log(checker._currentNode);
-            const hover = checker._currentNode.getChildByName('hover');
-            const clicked = checker._currentNode.getChildByName('clicked');
-            const regular = checker._currentNode.getChildByName('regular');
-            hover.active = true;
-            clicked.active = false;
-            regular.active = false;
+            try {
+                let checker = this.node.getComponentInChildren("Checkers");
+                const hover = checker._currentNode.getChildByName('hover');
+                const clicked = checker._currentNode.getChildByName('clicked');
+                const regular = checker._currentNode.getChildByName('regular');
+                hover.active = true;
+                clicked.active = false;
+                regular.active = false;
+                GlobalVariables.checker = checker;
+            } catch {
+
+            }
         }
     },
 
     onMouseLeave(event) {
         if (!this._clicked && this.user === GlobalVariables.step * GlobalVariables.playerCnt + GlobalVariables.currentUser) {
-            const checker = this.getComponentInChildren("Checkers");
-            // console.log(checker._currentNode);
-            const hover = checker._currentNode.getChildByName('hover');
-            const clicked = checker._currentNode.getChildByName('clicked');
-            const regular = checker._currentNode.getChildByName('regular');
-            hover.active = false;
-            clicked.active = false;
-            regular.active = true;
+            try {
+                const checker = this.node.getComponentInChildren("Checkers");
+                const hover = checker._currentNode.getChildByName('hover');
+                const clicked = checker._currentNode.getChildByName('clicked');
+                const regular = checker._currentNode.getChildByName('regular');
+                hover.active = false;
+                clicked.active = false;
+                regular.active = true;
+            } catch {
+
+            }
         }
     },
 
@@ -60,7 +67,7 @@ export default cc.Class({
             GlobalVariables.round = ROUNDS.SELECT_UNIT;
             GlobalVariables.currentUnit = [this.u, this.v, this.w];
 
-            const checker = this.getComponentInChildren("Checkers");
+            const checker = this.node.getComponentInChildren("Checkers");
             // console.log(checker._currentNode);
             const hover = checker._currentNode.getChildByName('hover');
             const clicked = checker._currentNode.getChildByName('clicked');
@@ -83,7 +90,7 @@ export default cc.Class({
         if (JSON.stringify(GlobalVariables.currentUnit) !== JSON.stringify([this.u, this.v, this.w])) {
             if (this._clicked === true) {
                 this._clicked = false;
-                const checker = this.getComponentInChildren("Checkers");
+                const checker = this.node.getComponentInChildren("Checkers");
                 console.log("checker._currentNode");
                 try {
                     const hover = checker._currentNode.getChildByName('hover');
@@ -96,6 +103,9 @@ export default cc.Class({
 
                 }
             }
+        }
+        if (this.user === -1) {
+            this.node.removeAllChildren();
         }
     },
 });

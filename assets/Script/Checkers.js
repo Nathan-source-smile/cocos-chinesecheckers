@@ -42,7 +42,6 @@ export default cc.Class({
     setColor(col) {
         this.unvisibleColor();
         if (col === 'red') {
-            console.log("red");
             // this.red.node.active = true;
             this.red_button.active = true;
             this._currentNode = this.red_button;
@@ -70,6 +69,7 @@ export default cc.Class({
     },
 
     setColor_1(col) {
+        let t = this;
         this.unvisibleColor();
         if (col === 'red') {
             this.red.node.active = true;
@@ -80,6 +80,7 @@ export default cc.Class({
                 if (i === 4) {
                     unit.node.active = false;
                     button.active = true;
+                    t._currentNode = button;
                     unit.unschedule(callback);
                 }
                 unit.changeChildren(i);
@@ -95,6 +96,7 @@ export default cc.Class({
                 if (i === 4) {
                     unit.node.active = false;
                     button.active = true;
+                    t._currentNode = button;
                     unit.unschedule(callback);
                 }
                 unit.changeChildren(i);
@@ -110,6 +112,7 @@ export default cc.Class({
                 if (i === 4) {
                     unit.node.active = false;
                     button.active = true;
+                    t._currentNode = button;
                     unit.unschedule(callback);
                 }
                 unit.changeChildren(i);
@@ -125,6 +128,7 @@ export default cc.Class({
                 if (i === 4) {
                     unit.node.active = false;
                     button.active = true;
+                    t._currentNode = button;
                     unit.unschedule(callback);
                 }
                 unit.changeChildren(i);
@@ -140,6 +144,7 @@ export default cc.Class({
                 if (i === 4) {
                     unit.node.active = false;
                     button.active = true;
+                    t._currentNode = button;
                     unit.unschedule(callback);
                 }
                 unit.changeChildren(i);
@@ -155,6 +160,7 @@ export default cc.Class({
                 if (i === 4) {
                     unit.node.active = false;
                     button.active = true;
+                    t._currentNode = button;
                     unit.unschedule(callback);
                 }
                 unit.changeChildren(i);
