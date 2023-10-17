@@ -39,7 +39,6 @@ export default cc.Class({
         this._list.forEach(list => {
             list.active = false;
         });
-        console.log("aaaa", i);
         this._list[(i % 4)].active = true;
     },
 

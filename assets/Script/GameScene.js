@@ -310,7 +310,7 @@ cc.Class({
             clicked.active = false;
             regular.active = true;
         } catch (e) {
-            console.log(e);
+            console.log("set the move result: ", e);
         }
     },
 
@@ -335,7 +335,7 @@ cc.Class({
             clicked.active = false;
             regular.active = true;
         } catch (e) {
-            console.log(e);
+            console.log("set next player: ", e);
         }
     },
 
@@ -440,14 +440,6 @@ cc.Class({
 
     // called every frame
     update: function (dt) {
-        // if (this._playerCnt !== GlobalVariables.playerCnt) {
-        //     this._playerCnt = GlobalVariables.playerCnt;
-        //     // console.log(this._playerCnt);
-        // }
-        // if (this._mode !== GlobalVariables.mode) {
-        //     this._mode = GlobalVariables.mode;
-        //     // console.log(this._playerCnt);
-        // }
     },
 });
 

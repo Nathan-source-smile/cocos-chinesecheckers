@@ -321,9 +321,7 @@ function selectUnit(params, room) {
     currentUnit = [params.u, params.v, params.w];
     availableCells = [];
     s = 0;
-    // console.log(currentUnit);
     getAvailableCells(currentUnit);
-    // console.log(availableCells);
     ServerCommService.send(
         MESSAGE_TYPE.SC_AVAIL_CELLS,
         {

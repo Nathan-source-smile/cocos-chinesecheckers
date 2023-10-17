@@ -172,7 +172,6 @@ export default cc.Class({
 
     onButtonClick() {
         const parent = this.node.getParent();
-        // console.log(parent);
         const cell = parent.getComponent("cell");
         cell.onTouchStart();
     },

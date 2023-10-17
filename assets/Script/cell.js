@@ -36,7 +36,7 @@ export default cc.Class({
                 regular.active = false;
                 GlobalVariables.checker = checker;
             } catch (e) {
-                console.log(e);
+                console.log("mouse move: ", e);
             }
         }
     },
@@ -52,23 +52,18 @@ export default cc.Class({
                 clicked.active = false;
                 regular.active = true;
             } catch (e) {
-                console.log(e);
+                console.log("mouse leave: ", e);
             }
         }
     },
 
     onTouchStart(event) {
-        // Get the position of the click event
-        // let touchPos = event.getLocation();
-        // touchPos = this.node.convertToNodeSpaceAR(touchPos);
-        // console.log(this.user);
         if (this.user === GlobalVariables.step * GlobalVariables.playerCnt + GlobalVariables.currentUser && (GlobalVariables.round === ROUNDS.START_STEP || GlobalVariables.round === ROUNDS.SELECT_UNIT)) {
             ClientCommService.sendSelectUnit(this.u, this.v, this.w, this.user);
             GlobalVariables.round = ROUNDS.SELECT_UNIT;
             GlobalVariables.currentUnit = [this.u, this.v, this.w];
 
             const checker = this.node.getComponentInChildren("Checkers");
-            // console.log(checker._currentNode);
             const hover = checker._currentNode.getChildByName('hover');
             const clicked = checker._currentNode.getChildByName('clicked');
             const regular = checker._currentNode.getChildByName('regular');
@@ -101,7 +96,7 @@ export default cc.Class({
                     clicked.active = false;
                     regular.active = true;
                 } catch (e) {
-                    console.log(e);
+                    console.log("cell update: ", e);
                 }
             }
         }
