@@ -36,7 +36,7 @@ export default cc.Class({
                 regular.active = false;
                 GlobalVariables.checker = checker;
             } catch (e) {
-                console.log("mouse move: ", e);
+                console.log("cell mouse move in line 31 exception : ", e);
             }
         }
     },
@@ -52,7 +52,7 @@ export default cc.Class({
                 clicked.active = false;
                 regular.active = true;
             } catch (e) {
-                console.log("mouse leave: ", e);
+                console.log("cell mouse leave in line 48 exception: ", e);
             }
         }
     },
@@ -96,7 +96,7 @@ export default cc.Class({
                     clicked.active = false;
                     regular.active = true;
                 } catch (e) {
-                    console.log("cell update: ", e);
+                    console.log("cell update in line 92 exception: ", e);
                 }
             }
         }
