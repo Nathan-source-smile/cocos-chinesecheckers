@@ -71,7 +71,7 @@ function sumArrays(arr1, arr2) {
 
 if (!trace) {
     var trace = function () {
-        console.log(JSON.stringify(arguments));
+        console.trace(JSON.stringify(arguments));
     }
 }
 
@@ -126,6 +126,14 @@ function startGame(params, room) {
     players = [];
     step = 0;
     fff = -1;
+
+    /**
+     * The commented players(1, 4, 3, 6) is neccessary to test the end of players' moves.
+     * For instance commented player1 variable is similar to uncommented player4 variable. Only last two points are different.
+     * And the commented player4 variable is similar to uncommented player1 variable. Only last point is different.
+     * So, if you start the game the player1 and player4 can reach their target place(opposite side) quickly.
+     * The same goes for player3 and player6.
+     */
 
     //starting positions of players
     var player1 = [[8, -4, -4], [7, -4, -3], [7, -3, -4], [6, -4, -2], [6, -3, -3], [6, -2, -4], [5, -4, -1], [5, -3, -2], [5, -2, -3], [5, -1, -4]];

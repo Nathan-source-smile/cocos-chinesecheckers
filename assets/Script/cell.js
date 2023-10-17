@@ -35,8 +35,8 @@ export default cc.Class({
                 clicked.active = false;
                 regular.active = false;
                 GlobalVariables.checker = checker;
-            } catch {
-
+            } catch (e) {
+                console.log(e);
             }
         }
     },
@@ -51,8 +51,8 @@ export default cc.Class({
                 hover.active = false;
                 clicked.active = false;
                 regular.active = true;
-            } catch {
-
+            } catch (e) {
+                console.log(e);
             }
         }
     },
@@ -91,7 +91,8 @@ export default cc.Class({
             if (this._clicked === true) {
                 this._clicked = false;
                 const checker = this.node.getComponentInChildren("Checkers");
-                console.log("checker._currentNode");
+                if (!checker)
+                    return;
                 try {
                     const hover = checker._currentNode.getChildByName('hover');
                     const clicked = checker._currentNode.getChildByName('clicked');
@@ -100,7 +101,7 @@ export default cc.Class({
                     clicked.active = false;
                     regular.active = true;
                 } catch (e) {
-
+                    console.log(e);
                 }
             }
         }

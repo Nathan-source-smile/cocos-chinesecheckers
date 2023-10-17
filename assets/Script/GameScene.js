@@ -310,7 +310,7 @@ cc.Class({
             clicked.active = false;
             regular.active = true;
         } catch (e) {
-
+            console.log(e);
         }
     },
 
@@ -325,6 +325,8 @@ cc.Class({
         hovers.forEach((hover) => {
             hover.node.destroy();
         });
+        if (!GlobalVariables.checker)
+            return;
         try {
             const hover = GlobalVariables.checker._currentNode.getChildByName('hover');
             const clicked = GlobalVariables.checker._currentNode.getChildByName('clicked');
@@ -333,7 +335,7 @@ cc.Class({
             clicked.active = false;
             regular.active = true;
         } catch (e) {
-
+            console.log(e);
         }
     },
 
