@@ -14,7 +14,7 @@ export const ClientCommService = {
                 GameScene.start1(params.playerList, params.user);
                 break;
             case MESSAGE_TYPE.SC_ASK_USER:
-                GameScene.askUser(params.user, params.step);
+                GameScene.askUser(params.user);
                 break;
             case MESSAGE_TYPE.SC_END_GAME:
                 GameScene.showEndModal(params.ranking);
@@ -32,8 +32,8 @@ export const ClientCommService = {
         ServerCommService.onReceiveMessage(messageType, data, room);
     },
 
-    sendSelectUnit(u, v, w, user) {
-        this.send(MESSAGE_TYPE.CS_SELECT_UNIT, { u, v, w, user }, 1);
+    sendSelectUnit(u, v, w, user, step) {
+        this.send(MESSAGE_TYPE.CS_SELECT_UNIT, { u, v, w, user, step }, 1);
     },
 
     sendClaimMove(currentUnit, targetCell, user) {

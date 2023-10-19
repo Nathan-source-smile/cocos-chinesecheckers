@@ -292,15 +292,15 @@ function getAvailableCells(unit) {
 function askUser(user) {
     trace("ask user to claim put stone : " + user);
     step = 0;
-    if (mode === 2) {
-        fff = (fff + 1) % (players.length * 2);
-        step = Math.floor(fff / players.length);
-    }
+    // if (mode === 2) {
+    //     fff = (fff + 1) % (players.length * 2);
+    //     step = Math.floor(fff / players.length);
+    // }
     ServerCommService.send(
         MESSAGE_TYPE.SC_ASK_USER,
         {
             user: user,
-            step: step,
+            // step: step,
         },
         1,
     );
@@ -319,6 +319,7 @@ function askUser(user) {
 
 function selectUnit(params, room) {
     currentUnit = [params.u, params.v, params.w];
+    step = params.step;
     availableCells = [];
     s = 0;
     getAvailableCells(currentUnit);

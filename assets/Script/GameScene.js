@@ -224,15 +224,10 @@ cc.Class({
         });
     },
 
-    askUser(user, step) {
+    askUser(user) {
         GlobalVariables.currentUser = user;
-        this._step = step;
-        GlobalVariables.step = step;
         GlobalVariables.currentUnit = [];
         this.setActivePlayer(user);
-        // this._cells.forEach((cell) => {
-        //     cell._clicked = false;
-        // });
     },
 
     setAvailCells(avaialbeCells, user) {

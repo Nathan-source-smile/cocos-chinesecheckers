@@ -58,8 +58,9 @@ export default cc.Class({
     },
 
     onTouchStart(event) {
-        if (this.user === GlobalVariables.step * GlobalVariables.playerCnt + GlobalVariables.currentUser && (GlobalVariables.round === ROUNDS.START_STEP || GlobalVariables.round === ROUNDS.SELECT_UNIT)) {
-            ClientCommService.sendSelectUnit(this.u, this.v, this.w, this.user);
+        if (this.user % GlobalVariables.playerCnt === GlobalVariables.currentUser && (GlobalVariables.round === ROUNDS.START_STEP || GlobalVariables.round === ROUNDS.SELECT_UNIT)) {
+            GlobalVariables.step = Math.floor(this.user / GlobalVariables.playerCnt);
+            ClientCommService.sendSelectUnit(this.u, this.v, this.w, this.user, GlobalVariables.step);
             GlobalVariables.round = ROUNDS.SELECT_UNIT;
             GlobalVariables.currentUnit = [this.u, this.v, this.w];
 
