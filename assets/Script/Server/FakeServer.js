@@ -12,6 +12,7 @@ var cubic = {
 var currentUnit = [];
 var targetCell = [];
 var playerList = [];
+var startList = [];
 var targetList = [];
 var availableCells = [];
 var currentPlayer = 0;
@@ -231,6 +232,7 @@ function startGame(params, room) {
         endflags.push(false);
         players.push(i);
     });
+    startList = copyObject(playerList);
     currentPlayer = 0;
     ServerCommService.send(
         MESSAGE_TYPE.SC_START_GAME,
@@ -311,10 +313,38 @@ function askUser(user) {
         availableCells = [];
         currentUnit = currentUnit.length === 0 ? playerList[user + step * playerCnt][r] : currentUnit;
         getAvailableCells(currentUnit);
+        exceptAvailableCells();
         var random = Math.floor(Math.random() * availableCells.length);
         moveUnit({ currentUnit: currentUnit, targetCell: availableCells[random], user: user }, 1);
     });
     timeHandlers.push(TimeoutManager.timeoutHandler);
+}
+
+function exceptAvailableCells() {
+    var result = [];
+    for (var i = 0; i < availableCells.length; i++) {
+        if (isIn2DArray(targetList[currentPlayer + step * playerCnt], currentUnit)) {
+            if (isIn2DArray(targetList[currentPlayer + step * playerCnt], availableCells[i])) {
+                result.push(copyObject(availableCells[i]));
+            }
+        } else {
+            var flag = false;
+            for (var j = 0; j < targetList.length; j++) {
+                if (j !== currentPlayer + step * playerCnt && isIn2DArray(targetList[j], availableCells[i]) && !isIn2DArray(startList[currentPlayer + step * playerCnt], availableCells[i])) {
+                    flag = true;
+                    break;
+                }
+                if (j !== currentPlayer + step * playerCnt && isIn2DArray(startList[j], availableCells[i]) && !isIn2DArray(targetList[currentPlayer + step * playerCnt], availableCells[i])) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                result.push(copyObject(availableCells[i]));
+            }
+        }
+    }
+    availableCells = copyObject(result);
 }
 
 function selectUnit(params, room) {
@@ -323,6 +353,7 @@ function selectUnit(params, room) {
     availableCells = [];
     s = 0;
     getAvailableCells(currentUnit);
+    exceptAvailableCells();
     ServerCommService.send(
         MESSAGE_TYPE.SC_AVAIL_CELLS,
         {
