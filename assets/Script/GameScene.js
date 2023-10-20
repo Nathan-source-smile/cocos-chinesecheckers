@@ -415,19 +415,19 @@ cc.Class({
             switch (ranking.indexOf(0)) {
                 case 1:
                     this.placeNotify1.node.active = true;
-                    this.placeNotify1.setText = '2nd';
+                    this.placeNotify1.setText('2nd');
                     break;
                 case 2:
                     this.placeNotify1.node.active = true;
-                    this.placeNotify1.setText = '3rd';
+                    this.placeNotify1.setText('3rd');
                     break;
                 case 3:
                     this.placeNotify1.node.active = true;
-                    this.placeNotify1.setText = '4th';
+                    this.placeNotify1.setText('4th');
                     break;
                 case 4:
                     this.placeNotify1.node.active = true;
-                    this.placeNotify1.setText = '5th';
+                    this.placeNotify1.setText('5th');
                     break;
             }
         }
